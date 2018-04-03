@@ -8,6 +8,24 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/EricsScene.unity
     guid: 99cac0dc41b7819438f3a4e7818e73aa
+  - enabled: 0
+    path: Assets/Scenes/Master.unity
+    guid: 98c1a5d8dc1a95543a1cb658a5715e0d
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 7df5158c261bd934db22521fbdb1f3b9
+  - enabled: 1
+    path: Assets/Scenes/PlayerSelect.unity
+    guid: 2967aa3124cd1d547b489f08905a3a94
   - enabled: 1
     path: Assets/Scenes/Trial.unity
     guid: d3ac8bfb5932d5847911342acae60089
+  - enabled: 1
+    path: Assets/Scenes/Inventory.unity
+    guid: c40218e83222bd448ae446b437b2ff8a
+  - enabled: 1
+    path: Assets/Scenes/Crafting.unity
+    guid: 3daa6c7fffa7cc942ad47754bca3ebc1
+  - enabled: 1
+    path: Assets/Scenes/Combat.unity
+    guid: 65589f8f7e0991b4792da35d9ed5ed07

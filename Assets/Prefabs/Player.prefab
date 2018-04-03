@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23354330897767432}
   - component: {fileID: 114134560782914760}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247465c02ca8fe94081e778cfbfe7730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaler: 0
+  testing: 0
 --- !u!136 &136042134090143204
 CapsuleCollider:
   m_ObjectHideFlags: 1
