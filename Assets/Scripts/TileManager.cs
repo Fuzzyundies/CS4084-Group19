@@ -9,7 +9,7 @@ public class TileManager : MonoBehaviour
     public int zoom = 18;
     public int size = 640;
     public float scale = 1f;
-    public string style = "emerald";
+    public string style = "Pirates";
     public string key;
 
     private Texture2D texture;
