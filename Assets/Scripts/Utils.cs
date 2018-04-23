@@ -12,7 +12,7 @@ namespace Utils {
         string name;
     }
 
-    struct Stats
+    public struct Stats
     {
         public int health;
         public int attack;
