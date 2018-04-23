@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
     public GameControllerScript gameController;
+    public PlayerController player;
 
     private int health, defense, speed, attack;
     private string loot;
@@ -16,7 +17,7 @@ public class EnemyController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        SetStats(100, 10, 10, 25, "Stick");
+        SetStats();
         childParticle = gameObject.GetComponentInChildren<ParticleSystem>();
         childParticle.Stop();
         despawnTime = Time.time + lifetime;
@@ -30,13 +31,17 @@ public class EnemyController : MonoBehaviour {
             Death();
     }
 
-    public void SetStats(int health, int defense, int speed, int attack, string loot)
+    public void SetStats()
     {
-        this.health = health;
+        /*this.health = player.playerStats.health + Random.Range(-10,10);
         this.defense = defense;
         this.speed = speed;
         this.attack = attack;
-        this.loot = loot;
+        //this.loot = loot;
+        this.playerStats.health = health;
+        this.playerStats.defense = defense;
+        this.playerStats.speed = speed;
+        this.playerStats.attack = attack;*/
     }
     
     public int GetHealth()
