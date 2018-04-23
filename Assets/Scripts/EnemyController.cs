@@ -33,10 +33,10 @@ public class EnemyController : MonoBehaviour {
 
     public void SetStats()
     {
-        this.health = player.playerStats.health + Random.Range(-20,-5);
-        this.defense = player.playerStats.defense + Random.Range(-20, -5);
-        this.speed = player.playerStats.speed + Random.Range(-20, -5); ;
-        this.attack = player.playerStats.attack + Random.Range(-20, -5); ;
+        this.health = player.playerStats.health + Random.Range(-20,5);
+        this.defense = player.playerStats.defense + Random.Range(-5, 5);
+        this.speed = player.playerStats.speed + Random.Range(-5, 5); ;
+        this.attack = player.playerStats.attack + Random.Range(-5, 5); ;
         //this.loot = loot;
     }
     
