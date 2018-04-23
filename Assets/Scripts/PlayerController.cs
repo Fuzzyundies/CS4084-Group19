@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+    public Image damageImage;
+    public Slider healthSlider;
 
     private int health, defense, speed, attack;
     private float lastHealth;
-    private bool ableToAttack;
+    private bool ableToAttack, damaged;
 
     private float healthTimer = 5.0f;
     private int maxHealth = 100;
@@ -16,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start ()
-    {
+    { 
         Debug.Log("Alive");
         lastHealth = healthTimer;
         ableToAttack = true;
@@ -52,6 +56,15 @@ public class PlayerController : MonoBehaviour {
             else
                 health = maxHealth;
         }
+        if(damaged)
+        {
+            damageImage.color = flashColour;
+        }
+        else
+        {
+            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+        }
+        damaged = false;
 	}
 
     public void SetStats(int health, int defense, int speed, int attack)
@@ -123,30 +136,36 @@ public class PlayerController : MonoBehaviour {
         if (hit.collider.GetComponent<EnemyController>())
         {
             EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-          //  try
-          //  {
-                Debug.Log("In try");
-                if (speed > enemy.GetSpeed())
-                {
-                    Debug.Log("Player Faster");
-                    enemy.TakeDamage(attack);
-                    yield return new WaitForSeconds(1);
+            Debug.Log("In try");
+            if (speed > enemy.GetSpeed())
+            {
+                Debug.Log("Player Faster");
+                enemy.TakeDamage(attack);
+                yield return new WaitForSeconds(0.2f);
                 if (enemy.GetHealth() > 0)
-                    {
-                        TakeDamage(enemy.GetAttack());
-                        
-                    }
-                }
-                else
                 {
-                    Debug.Log("Enemy Faster");
                     TakeDamage(enemy.GetAttack());
-                    yield return new WaitForSeconds(1);
-                    if (health > 0)
-                        enemy.TakeDamage(attack);
+                    damaged = true;
+                    healthSlider.value = health;
                 }
-         //   }
-         //   catch { Debug.Log("Failed"); }
+            }
+            else
+            {
+                Debug.Log("Enemy Faster");
+                TakeDamage(enemy.GetAttack());
+                damaged = true;
+                healthSlider.value = health;
+                yield return new WaitForSeconds(0.2f);
+                if (health > 0)
+                     enemy.TakeDamage(attack);
+            }
         }
     }
+
+   /* private void HitVisual()
+    {
+        damageImage.color = flashColour;
+        damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+        healthSlider.value = health;
+    }*/
 }

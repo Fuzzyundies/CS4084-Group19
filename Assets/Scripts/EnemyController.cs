@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        Spawned();
+        StartCoroutine(Spawned());
     }
 
     // Update is called once per frame
