@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log("Player stats: " + playerStats.health + " " + playerStats.attack + " " + playerStats.defense + " " + playerStats.speed);
         if ((Input.touchCount < 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             Ray camRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);

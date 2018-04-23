@@ -1472,7 +1472,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Crafting will be available in a later update:
+  m_Text: 'Crafting & Inventory management will be available in a later update:
 
     Tap on two different items in your inventory to try to combine them into a new
     item!
