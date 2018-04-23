@@ -38,15 +38,26 @@ public class PlayerController : MonoBehaviour
             Ray camRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             RaycastHit hit;
             if (Physics.Raycast(camRay, out hit))
-                StartCoroutine(Combat(hit));
+            {
+                if(hit.collider.GetComponentInParent<EnemyController>())
+                    StartCoroutine(Combat(hit));
+                if(hit.collider.GetComponentInParent<ResourceController>())
+                    Harvest(hit);
+            }
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("in mouse");
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(camRay, out hit))
-                StartCoroutine(Combat(hit));
+            {
+                if (hit.collider.GetComponentInParent<EnemyController>())
+                    StartCoroutine(Combat(hit));
+                if (hit.collider.GetComponentInParent<ResourceController>())
+                    Harvest(hit);
+            }
         }
 
         if (Time.time >= lastHealth + healthTimer && health > 100)
@@ -108,6 +119,7 @@ public class PlayerController : MonoBehaviour
         health -= dmg;
         HealthCheck();
         lastHealth = Time.time;
+        Handheld.Vibrate();
         Debug.Log("Player: Health: " + health + " Speed: " + speed + " Defense: " + defense + " Attack: " + attack);
     }
 
@@ -130,38 +142,48 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private IEnumerator Combat(RaycastHit hit)
+    private void Harvest(RaycastHit hit)
     {
-        Debug.Log("In Combat");
-        if (hit.collider.GetComponent<EnemyController>())
+      if(hit.collider.GetComponentInParent<ResourceController>())
         {
-            EnemyController enemy = hit.collider.GetComponent<EnemyController>();
-            Debug.Log("In try");
-            if (speed > enemy.GetSpeed())
-            {
-                Debug.Log("Player Faster");
-                enemy.TakeDamage(attack);
-                yield return new WaitForSeconds(0.2f);
-                if (enemy.GetHealth() > 0)
-                {
-                    TakeDamage(enemy.GetAttack());
-                    damaged = true;
-                    healthSlider.value = health;
-                }
-            }
-            else
-            {
-                Debug.Log("Enemy Faster");
-                TakeDamage(enemy.GetAttack());
-                damaged = true;
-                healthSlider.value = health;
-                yield return new WaitForSeconds(0.2f);
-                if (health > 0)
-                     enemy.TakeDamage(attack);
-            }
+            hit.collider.GetComponentInParent<ResourceController>().HarvestNode();
         }
     }
 
+    private IEnumerator Combat(RaycastHit hit)
+    {
+        if (ableToAttack)
+        {
+            Debug.Log("In Combat");
+            if (hit.collider.GetComponentInParent<EnemyController>())
+            {
+                EnemyController enemy = hit.collider.GetComponentInParent<EnemyController>();
+                Debug.Log("In try");
+                if (speed > enemy.GetSpeed())
+                {
+                    Debug.Log("Player Faster");
+                    enemy.TakeDamage(attack);
+                    yield return new WaitForSeconds(0.2f);
+                    if (enemy.GetHealth() > 0)
+                    {
+                        TakeDamage(enemy.GetAttack());
+                        damaged = true;
+                        healthSlider.value = health;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Enemy Faster");
+                    TakeDamage(enemy.GetAttack());
+                    damaged = true;
+                    healthSlider.value = health;
+                    yield return new WaitForSeconds(0.2f);
+                    if (health > 0)
+                        enemy.TakeDamage(attack);
+                }
+            }
+        }
+    }
    /* private void HitVisual()
     {
         damageImage.color = flashColour;

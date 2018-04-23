@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
+    public GameControllerScript gameController;
+
     private int health, defense, speed, attack;
     private string loot;
+    private bool ableToFight = true;
+    private ParticleSystem childParticle;
+    private float despawnTime;
+    private float lifetime = 120f;
 
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(Spawned());
+        SetStats(100, 10, 10, 25, "Stick");
+        childParticle = gameObject.GetComponentInChildren<ParticleSystem>();
+        despawnTime = Time.time + lifetime;
+        Debug.Log("Stats set" + health + defense + speed + attack);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Time.time >= despawnTime)
+            Death();
     }
 
     public void SetStats(int health, int defense, int speed, int attack, string loot)
@@ -50,41 +60,46 @@ public class EnemyController : MonoBehaviour {
 
     public string GetLoot()
     {
-        return loot; ;
+        return loot;
     }
     public void TakeDamage(int dmg)
     {
-        dmg -= defense;
-        if (dmg <= 0)
-            dmg = 1;
-        else
+        if (ableToFight)
         {
-            health -= dmg;
-            HealthCheck();
-            Debug.Log("Enemy: Health: " + health + " Defense: " + defense + " Speed: " + speed + " Attack: " + attack);
+            dmg -= defense;
+            if (dmg <= 0)
+                dmg = 1;
+            else
+            {
+                health -= dmg;
+                HealthCheck();
+                Debug.Log("Enemy: Health: " + health + " Defense: " + defense + " Speed: " + speed + " Attack: " + attack);
+            }
         }
     }
 
     private void HealthCheck()
     {
+        StartCoroutine(HitAnimation());
         if (health <= 0)
         {
+            ableToFight = false;
             StartCoroutine(Death());
         }
     }
-
-
-    private IEnumerator Spawned()
+    
+    private IEnumerator HitAnimation()
     {
-        //Temporary
-        SetStats(100, 10, 10, 25, "Stick");
-        Debug.Log("Stats set" + health + defense + speed + attack);
-        yield return new WaitForSeconds(3);
+        childParticle.Play();
+        yield return new WaitForSeconds(1.5f);
+        childParticle.Stop();
     }
 
     private IEnumerator Death()
     {
-        yield return new WaitForSeconds(3);
+        gameController.EnemyDown();
+        childParticle.Play();
+        yield return new WaitForSeconds(1.5f);
         Destroy(gameObject);
     }
 }
