@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,15 +33,11 @@ public class EnemyController : MonoBehaviour {
 
     public void SetStats()
     {
-        /*this.health = player.playerStats.health + Random.Range(-10,10);
-        this.defense = defense;
-        this.speed = speed;
-        this.attack = attack;
+        this.health = player.playerStats.health + Random.Range(-20,-5);
+        this.defense = player.playerStats.defense + Random.Range(-20, -5);
+        this.speed = player.playerStats.speed + Random.Range(-20, -5); ;
+        this.attack = player.playerStats.attack + Random.Range(-20, -5); ;
         //this.loot = loot;
-        this.playerStats.health = health;
-        this.playerStats.defense = defense;
-        this.playerStats.speed = speed;
-        this.playerStats.attack = attack;*/
     }
     
     public int GetHealth()

@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
 {
     public Image damageImage;
     public Slider healthSlider;
+    public Stats playerStats;
 
-    private Stats playerStats;
     //private int health, defense, speed, attack;
     private float lastHealth;
     private bool ableToAttack, damaged;
