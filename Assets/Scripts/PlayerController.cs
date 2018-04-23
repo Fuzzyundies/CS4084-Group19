@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviour
         LoadUserData();
         if (userId.Equals(""))
         {
-            GenerateUserId();
+            StartCoroutine(GenerateUserId());
         }
-        DownloadPlayerData();
+        StartCoroutine(DownloadPlayerData());
     }
 
 
