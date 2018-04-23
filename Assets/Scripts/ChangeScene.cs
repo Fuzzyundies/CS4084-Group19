@@ -13,6 +13,9 @@ public class ChangeScene : MonoBehaviour
 
     public void ExitGame()
     {
+        PlayerController player = FindObjectOfType<PlayerController>();
+        player.SaveUserData();
+        player.UploadPlayerData();
         Application.Quit();
     }
 }
