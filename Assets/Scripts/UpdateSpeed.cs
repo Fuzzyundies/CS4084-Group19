@@ -18,6 +18,7 @@ public class UpdateSpeed : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        spdValue = player.GetSpeed();
         text.text = spdValue.ToString();
     }
 }

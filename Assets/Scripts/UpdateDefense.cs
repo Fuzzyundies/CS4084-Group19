@@ -18,6 +18,7 @@ public class UpdateDefense : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        defValue = player.GetDefense();
         text.text = defValue.ToString();
 	}
 }

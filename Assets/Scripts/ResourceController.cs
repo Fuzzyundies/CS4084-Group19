@@ -41,9 +41,9 @@ public class ResourceController : MonoBehaviour {
 
     public void HarvestNode()
     {
-        player.playerStats.attack += Random.Range(1, 5);
-        player.playerStats.speed += Random.Range(1, 5);
-        player.playerStats.defense += Random.Range(1, 5);
+        player.playerStats.attack = player.playerStats.attack + Random.Range(1, 5);
+        player.playerStats.speed = player.playerStats.speed + Random.Range(1, 5);
+        player.playerStats.defense = player.playerStats.defense + Random.Range(1, 5);
         StartCoroutine(Death());
         Debug.Log("Collected Resouces stats: " + player.playerStats.health + " " + player.playerStats.attack + " " + player.playerStats.defense + " " + player.playerStats.speed);
     }

@@ -166,7 +166,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log("In Harvest Player");
         if(hit.collider.GetComponentInParent<ResourceController>())
         {
+            playerStats.attack = playerStats.attack + Random.Range(1, 5);
+            playerStats.speed = playerStats.speed + Random.Range(1, 5);
+            playerStats.defense = playerStats.defense + Random.Range(1, 5);
             hit.collider.GetComponentInParent<ResourceController>().HarvestNode();
+            Debug.Log("Calling Harverster Resouces stats: " + playerStats.health + " " + playerStats.attack + " " + playerStats.defense + " " + playerStats.speed);
         }
     }
 

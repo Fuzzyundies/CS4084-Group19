@@ -18,6 +18,7 @@ public class UpdateAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        atkValue = player.GetAttack();
         text.text = atkValue.ToString();
     }
 }
