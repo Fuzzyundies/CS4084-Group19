@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviour
         LoadUserData();
         if (userId.Equals(""))
         {
-            StartCoroutine(GenerateUserId());
+            GenerateUserId();
         }
-        StartCoroutine(DownloadPlayerData());
+        DownloadPlayerData();
     }
 
 
@@ -236,7 +236,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public IEnumerator DownloadPlayerData()
+    public void DownloadPlayerData()
     {
         string[] dataElements;
 
@@ -245,7 +245,6 @@ public class PlayerController : MonoBehaviour
         form.AddField("user_id", userId);
 
         WWW data = new WWW("http://irl-authentication.azurewebsites.net/getplayerdata.php", form);
-        yield return data;
         string dataString = data.text;
         Debug.Log("Server response: " + data.text);
         if (!(dataString.Equals("") || dataString.StartsWith("Failed to connect to MySQL:")))
@@ -264,7 +263,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public IEnumerator UploadPlayerData()
+    public void UploadPlayerData()
     {
         string data = JsonConvert.SerializeObject(inventory) + '$' + JsonConvert.SerializeObject(playerStats);
 
@@ -274,13 +273,11 @@ public class PlayerController : MonoBehaviour
         form.AddField("data", data);
 
         WWW www = new WWW("http://irl-authentication.azurewebsites.net/storeplayerdata.php", form);
-        yield return www;
     }
 
-    public IEnumerator GenerateUserId()
+    public void GenerateUserId()
     {
         WWW data = new WWW("http://irl-authentication.azurewebsites.net/generateid.php");
-        yield return data;
         userId = data.text;
     }
 }

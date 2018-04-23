@@ -15,7 +15,7 @@ public class ChangeScene : MonoBehaviour
     {
         PlayerController player = FindObjectOfType<PlayerController>();
         player.SaveUserData();
-        StartCoroutine(player.UploadPlayerData());
+        player.UploadPlayerData();
         Application.Quit();
     }
 }
