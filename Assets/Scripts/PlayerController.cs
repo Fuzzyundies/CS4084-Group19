@@ -247,6 +247,7 @@ public class PlayerController : MonoBehaviour
         WWW data = new WWW("http://irl-authentication.azurewebsites.net/getplayerdata.php", form);
         yield return data;
         string dataString = data.text;
+        Debug.Log("Server response: " + data.text);
         if (!(dataString.Equals("") || dataString.StartsWith("Failed to connect to MySQL:")))
         {
             dataElements = dataString.Split('$');
