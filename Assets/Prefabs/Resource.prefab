@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 114734419705963812, guid: e6d25ce86b6294847b744bff45d781af,
     type: 2}
+  player: {fileID: 114082792719344624, guid: 2170ef18e01b8ee4bad198b0c8723db1, type: 2}
 --- !u!135 &135017385662168190
 SphereCollider:
   m_ObjectHideFlags: 1

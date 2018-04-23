@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResourceController : MonoBehaviour {
 
     public GameControllerScript gameController;
+    public PlayerController player;
 
     private string resource;
     private ParticleSystem childParticle;
@@ -40,7 +41,9 @@ public class ResourceController : MonoBehaviour {
 
     public void HarvestNode()
     {
-        //For Stephen to Implement
+        player.playerStats.attack += Random.Range(1, 5);
+        player.playerStats.speed += Random.Range(1, 5);
+        player.playerStats.defense += Random.Range(1, 5);
         StartCoroutine(Death());
     }
 
