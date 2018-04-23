@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour {
     {
         SetStats(100, 10, 10, 25, "Stick");
         childParticle = gameObject.GetComponentInChildren<ParticleSystem>();
+        childParticle.Stop();
         despawnTime = Time.time + lifetime;
         Debug.Log("Stats set" + health + defense + speed + attack);
     }

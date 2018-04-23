@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
+        if ((Input.touchCount < 0 && Input.GetTouch(0).phase == TouchPhase.Began))
         {
             Ray camRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             RaycastHit hit;
@@ -144,7 +144,8 @@ public class PlayerController : MonoBehaviour
 
     private void Harvest(RaycastHit hit)
     {
-      if(hit.collider.GetComponentInParent<ResourceController>())
+        Debug.Log("In Harvest Player");
+        if(hit.collider.GetComponentInParent<ResourceController>())
         {
             hit.collider.GetComponentInParent<ResourceController>().HarvestNode();
         }
@@ -168,7 +169,7 @@ public class PlayerController : MonoBehaviour
                     {
                         TakeDamage(enemy.GetAttack());
                         damaged = true;
-                        healthSlider.value = health;
+                        HitVisual();
                     }
                 }
                 else
@@ -176,7 +177,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Enemy Faster");
                     TakeDamage(enemy.GetAttack());
                     damaged = true;
-                    healthSlider.value = health;
+                    HitVisual();
                     yield return new WaitForSeconds(0.2f);
                     if (health > 0)
                         enemy.TakeDamage(attack);
@@ -184,10 +185,11 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-   /* private void HitVisual()
+
+   private void HitVisual()
     {
-        damageImage.color = flashColour;
-        damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+       // damageImage.color = flashColour;
+      //  damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         healthSlider.value = health;
-    }*/
+    }
 }

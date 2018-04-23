@@ -9,7 +9,8 @@ public class GameControllerScript : MonoBehaviour {
 
     private PlayerController player;
     private float nextEnemySpawn, nextResourceSpawn;
-   // private float spawnEnemyTime = Random.Range(5, 15);
+    private float scaler = 0.01f;
+    // private float spawnEnemyTime = Random.Range(5, 15);
     //private float spawnResourceNodeTime = Random.Range(10, 30);
     private int enemyCount = 0;
     private int resourceNodeCount = 0;
@@ -17,12 +18,16 @@ public class GameControllerScript : MonoBehaviour {
     private int maxResourceNodeCount = 10;
     //private bool spawnedEnemy, spawnedResourceNode;
 
+
 	// Use this for initialization
 	void Start ()
     {
         //InvokeRepeating("SpawnEnemies", spawnEnemyTime, spawnEnemyTime);
         //InvokeRepeating("SpawnResourceNodes", spawnResourceNodeTime, spawnResourceNodeTime);
         player = FindObjectOfType<PlayerController>();
+        StartCoroutine(Populate());
+        nextEnemySpawn = Time.time + Random.Range(5, 15);
+        nextResourceSpawn = Time.time + Random.Range(5, 15);
     }
 	
 	// Update is called once per frame
@@ -51,20 +56,20 @@ public class GameControllerScript : MonoBehaviour {
         switch (sideSelector)
         {
             case 1:
-                spawnPoint.x = Screen.width;
-                spawnPoint.z = (int)Random.Range(-Screen.height, Screen.height);
+                spawnPoint.x = Screen.width * scaler;
+                spawnPoint.z = (int)(Random.Range(-Screen.height, Screen.height)*scaler);
                 break;
             case 2:
-                spawnPoint.x = -Screen.width;
-                spawnPoint.z = (int)Random.Range(-Screen.height, Screen.height);
+                spawnPoint.x = -Screen.width * scaler;
+                spawnPoint.z = (int)(Random.Range(-Screen.height, Screen.height) * scaler);
                 break;
             case 3:
-                spawnPoint.x = (int)Random.Range(-Screen.width, Screen.width);
-                spawnPoint.z = Screen.height;
+                spawnPoint.x = (int)(Random.Range(-Screen.width, Screen.width) * scaler);
+                spawnPoint.z = Screen.height * scaler;
                 break;
             case 4:
-                spawnPoint.x = (int)Random.Range(-Screen.width, Screen.height);
-                spawnPoint.z = -Screen.height;
+                spawnPoint.x = (int)(Random.Range(-Screen.width, Screen.height) * scaler);
+                spawnPoint.z = -Screen.height * scaler;
                 break;
             default: break;
         }
@@ -81,6 +86,23 @@ public class GameControllerScript : MonoBehaviour {
     public void EnemyDown()
     {
         enemyCount--;
+    }
+
+    public IEnumerator Populate()
+    {
+        yield return new WaitForSeconds(3);
+        for (int i = 0; i < 6; i++)
+        {
+            Vector3 spawnPoint = new Vector3();
+            spawnPoint.x = (int)Random.Range(-5, 5);
+            spawnPoint.y = 1;
+            spawnPoint.z = (int)Random.Range(-5, 5);
+            if (i % 2 == 0)
+                Instantiate(enemy, spawnPoint, transform.rotation);
+            else
+                Instantiate(resourceNode, spawnPoint, transform.rotation);
+        }
+        player.gameObject.transform.position = new Vector3(0, 0, 0);
     }
 }
  

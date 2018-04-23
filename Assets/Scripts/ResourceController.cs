@@ -16,6 +16,7 @@ public class ResourceController : MonoBehaviour {
     {
         SetStats("Metal");
         childParticle = gameObject.GetComponentInChildren<ParticleSystem>();
+        childParticle.Stop();
         despawnTime = Time.time + lifetime;
         Debug.Log("Stats set" + resource);
     }
@@ -40,11 +41,12 @@ public class ResourceController : MonoBehaviour {
     public void HarvestNode()
     {
         //For Stephen to Implement
-        Death();
+        StartCoroutine(Death());
     }
 
     private IEnumerator Death()
     {
+        Debug.Log("Resourece Dead");
         gameController.ResourceDown();
         childParticle.Play();
         yield return new WaitForSeconds(1.5f);
