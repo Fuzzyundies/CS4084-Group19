@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator GenerateUserId()
     {
-        WWW data = new WWW("http://irl-authentication.azurewebsites.net/storeplayerdata.php");
+        WWW data = new WWW("http://irl-authentication.azurewebsites.net/generateid.php");
         yield return data;
         userId = data.text;
     }
